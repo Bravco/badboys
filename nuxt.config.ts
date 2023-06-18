@@ -3,6 +3,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [
     "nuxt-icon",
+    "nuxt-swiper",
   ],
   css: [
     "~/assets/main.css",

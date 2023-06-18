@@ -60,6 +60,7 @@
         display: grid;
         place-items: center;
         background-color: var(--color-primary);
+        border-radius: .5rem;
     }
 
     .content {
