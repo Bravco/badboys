@@ -25,7 +25,7 @@
     <p>Viac ako 300+ pozitívnych recenzií</p>
     <Swiper
       class="swiper"
-      style="--swiper-pagination-color: var(--color-primary)"
+      style="--swiper-pagination-color: var(--color-primary); --swiper-pagination-bullet-inactive-color: var(--color-text);"
       :modules="[SwiperAutoplay, SwiperPagination]"
       :breakpoints="{
         1024: {
