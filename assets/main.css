@@ -15,6 +15,10 @@
     --color-text-alt: #8C8C8C;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     color: var(--color-text);
     background-color: var(--color-background-primary);

@@ -14,6 +14,18 @@
         </li>
         <li class="info-item">
             <div class="icon-wrapper">
+                <Icon name="fa6-solid:location-dot" size="3rem"/>
+            </div>
+            <div class="content">
+                <h3>Lokácia</h3>
+                <div class="text">
+                    <p>Slovenského raja 169/23,</p>
+                    <p>053 11 Smižany</p>
+                </div>
+            </div>
+        </li>
+        <li class="info-item">
+            <div class="icon-wrapper">
                 <Icon name="fa6-solid:van-shuttle" size="3rem"/>
             </div>
             <div class="content">
@@ -43,8 +55,8 @@
 <style scoped>
     .info-list {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        padding: 8rem 0;
+        grid-template-columns: 1fr 2fr 2fr 1fr;
+        padding: 8rem 5%;
     }
 
     .info-item {
@@ -52,6 +64,14 @@
         flex-direction: column;
         align-items: center;
         gap: 2rem;
+    }
+
+    .info-item:first-child {
+        margin-right: auto;
+    }
+
+    .info-item:last-child {
+        margin-left: auto;
     }
 
     .icon-wrapper {
