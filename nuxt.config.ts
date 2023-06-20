@@ -4,6 +4,7 @@ export default defineNuxtConfig({
   modules: [
     "nuxt-icon",
     "nuxt-swiper",
+    "@nuxtjs/supabase",
   ],
   css: [
     "~/assets/main.css",
