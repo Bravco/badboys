@@ -46,7 +46,7 @@
     const client = useSupabaseClient();
 
     const { data: pizzas } = await useAsyncData("pizzas", async () => {
-        const { data } = (await client.from("pizzas").select());
+        const { data } = (await client.from("pizzas").select().order("id"));
         return data;
     });
 </script>
@@ -60,6 +60,7 @@
         justify-content: center;
         align-content: start;
         gap: 4rem;
+        padding-bottom: 10%;
     }
 
     .menu-header {
