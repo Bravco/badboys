@@ -83,6 +83,11 @@ h1:hover::after {
     width: 100%;
 }
 
+h2 {
+    font-size: 2.5rem;
+    font-weight: 500;
+}
+
 h3 {
     font-size: 1.5rem;
     font-weight: 500;
@@ -125,4 +130,8 @@ hr {
 
 .btn-outlined {
     border: 2px solid var(--color-text);
+}
+
+.paragraph-alt {
+    color: var(--color-text-alt);
 }

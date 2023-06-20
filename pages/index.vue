@@ -16,13 +16,13 @@
   <section id="location">
     <div class="text">
       <h1>Lokácia</h1>
-      <p>Slovenského raja 169/23, 053 11 Smižany</p>
+      <p class="paragraph-alt">Slovenského raja 169/23, 053 11 Smižany</p>
     </div>
     <div class="location-img"></div>
   </section>
   <section id="reviews">
     <h1>Recenzie</h1>
-    <p>Viac ako 300+ pozitívnych recenzií</p>
+    <p class="paragraph-alt">Viac ako 300+ pozitívnych recenzií</p>
     <Swiper
       class="swiper"
       style="--swiper-pagination-color: var(--color-primary); --swiper-pagination-bullet-inactive-color: var(--color-text);"
@@ -133,10 +133,6 @@
     gap: 1rem;
   }
 
-  #location .text p {
-    color: var(--color-text-alt);
-  }
-
   .location-img {
     width: 100%;
     height: 32rem;
@@ -162,7 +158,6 @@
     width: fit-content;
     padding-top: 1rem;
     margin: 0 auto;
-    color: var(--color-text-alt);
   }
 
   .swiper {
