@@ -1,13 +1,13 @@
 <template>
     <section id="menu-section">
-        <div class="heading">
+        <div class="heading" v-motion-slide-visible-left>
             <h2>{{ title }}</h2>
             <div class="menu-description paragraph-alt">
                 <slot name="description"></slot>
             </div>
         </div>
         <ul class="menu-list">
-            <li v-for="item in items" class="menu-item">
+            <li v-for="item in items" class="menu-item" v-motion-slide-visible-left>
                 <img v-if="isPizza" class="menu-item-image" src="~/assets/pizza.svg" alt="item-image">
                 <img v-else class="menu-item-image" src="~/assets/salad.svg" alt="item-image">
                 <div class="menu-item-info">

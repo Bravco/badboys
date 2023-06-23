@@ -5,6 +5,7 @@ export default defineNuxtConfig({
     "nuxt-icon",
     "nuxt-swiper",
     "@nuxtjs/supabase",
+    "@vueuse/motion/nuxt",
   ],
   css: [
     "~/assets/main.css",

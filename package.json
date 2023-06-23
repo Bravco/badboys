@@ -9,14 +9,15 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "@nuxt/devtools": "latest",
+    "@nuxt/devtools": "^0.6.2",
     "@nuxtjs/supabase": "^0.3.7",
-    "@types/node": "^18",
+    "@types/node": "^18.16.18",
     "nuxt": "^3.5.3",
     "nuxt-icon": "^0.4.1"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.25.0",
-    "nuxt-swiper": "^1.1.0"
+    "@supabase/supabase-js": "^2.26.0",
+    "@vueuse/motion": "^2.0.0",
+    "nuxt-swiper": "^1.1.1"
   }
 }
