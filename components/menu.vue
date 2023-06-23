@@ -1,6 +1,6 @@
 <template>
-    <section class="menu-section">
-        <div class="menu-header">
+    <section id="menu-section">
+        <div class="heading">
             <h2>{{ title }}</h2>
             <div class="menu-description paragraph-alt">
                 <slot name="description"></slot>
@@ -8,7 +8,8 @@
         </div>
         <ul class="menu-list">
             <li v-for="item in items" class="menu-item">
-                <img class="menu-item-image" src="~/assets/pizza.svg" alt="pizza">
+                <img v-if="isPizza" class="menu-item-image" src="~/assets/pizza.svg" alt="item-image">
+                <img v-else class="menu-item-image" src="~/assets/salad.svg" alt="item-image">
                 <div class="menu-item-info">
                     <div class="text">
                         <h4>
@@ -49,21 +50,20 @@
             type: Array,
             required: true,
         },
+        isPizza: {
+            type: Boolean,
+            default: true,
+            required: false,
+        },
     });
 </script>
 
 <style scoped>
-    .menu-section {
-        justify-content: center;
+    #menu-section {
+        min-height: unset;
         align-content: start;
         gap: 4rem;
         padding-bottom: 10%;
-    }
-
-    .menu-header {
-        display: grid;
-        place-items: center;
-        gap: 1rem;
     }
 
     .menu-description {
@@ -81,11 +81,11 @@
     .menu-item {
         display: flex;
         align-items: center;
-        gap: 1rem;
+        gap: 2rem;
     }
 
     .menu-item-image {
-        width: 6rem;
+        height: 6rem;
         filter: invert(1) opacity(50%);
     }
 

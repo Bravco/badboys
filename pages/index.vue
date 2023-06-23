@@ -14,7 +14,7 @@
   </section>
   <Quickinfo/>
   <section id="location">
-    <div class="text">
+    <div class="heading">
       <h1>Lokácia</h1>
       <p class="paragraph-alt">Slovenského raja 169/23, 053 11 Smižany</p>
     </div>
@@ -125,12 +125,6 @@
   #location {
     position: relative;
     padding: 0;
-  }
-
-  #location .text {
-    display: grid;
-    place-items: center;
-    gap: 1rem;
   }
 
   .location-img {

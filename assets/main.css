@@ -135,3 +135,9 @@ hr {
 .paragraph-alt {
     color: var(--color-text-alt);
 }
+
+.heading {
+    display: grid;
+    place-items: center;
+    gap: 1rem;
+}
