@@ -1,6 +1,6 @@
 <template>
     <section id="hero-alt">
-        <h1 v-motion-slide-visible-bottom>Ponuka</h1>
+        <h1 v-motion-slide-left>Ponuka</h1>
         <div class="hero-background"></div>
     </section>
     <Quickinfo/>
