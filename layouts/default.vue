@@ -19,6 +19,7 @@
             <div class="left">
                 <Logo/>
                 <p>Najlepšia pizzéria na celom východnom Slovensku.</p>
+                <NuxtLink class="footer-link" to="/auth">Prihlásiť sa</NuxtLink>
             </div>
             <div class="right">
                 <div class="footer-item">
@@ -41,7 +42,7 @@
                         <li>Slovenského raja 169/23,</li>
                         <li>053 11 Smižany</li>
                     </ul>
-                    <a href="https://www.google.com/maps/place/BAD+BOYS+PIZZA/@48.9548108,20.5139215,15z/data=!4m2!3m1!1s0x0:0x99f8b7d67837fe23?sa=X&ved=2ahUKEwiA0qXmj8r_AhUhiv0HHaSSAEQQ_BJ6BAhgEAg" target="_blank">Pozri na mape ↗</a>
+                    <a class="footer-link" href="https://www.google.com/maps/place/BAD+BOYS+PIZZA/@48.9548108,20.5139215,15z/data=!4m2!3m1!1s0x0:0x99f8b7d67837fe23?sa=X&ved=2ahUKEwiA0qXmj8r_AhUhiv0HHaSSAEQQ_BJ6BAhgEAg" target="_blank">Pozri na mape ↗</a>
                 </div>
             </div>
         </div>
@@ -127,7 +128,7 @@
         gap: .25rem;
     }
 
-    .footer-item a {
+    .footer-link {
         margin-top: 1rem;
         text-decoration: underline;
         font-weight: 500;
