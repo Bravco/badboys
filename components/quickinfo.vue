@@ -1,5 +1,5 @@
 <template>
-    <ul class="info-list" v-motion-slide-visible-left>
+    <ul class="info-list" v-motion-slide-visible-bottom>
         <li class="info-item">
             <div class="icon-wrapper">
                 <Icon name="fa6-solid:phone" size="3rem"/>

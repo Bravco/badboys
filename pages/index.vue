@@ -1,28 +1,28 @@
 <template>
   <section id="hero">
-    <div class="content" v-motion-slide-visible-left>
+    <div class="content" v-motion="customMotion(false)">
       <div class="text">
         <h1>Jedlo na úrovni</h1>
         <p>Stručná deskripcia reštaurácie Bad Boys. Ide o krátky výstižný text, ktorý správne popisuje web stránku a pizzériu ako takú.</p>
       </div>
       <div class="btns">
-        <NuxtLink class="btn-primary" to="ponuka">Objednaj</NuxtLink>
-        <a href="#reviews" class="btn-outlined">Pozri Recenzie</a>
+        <NuxtLink class="btn-primary" to="ponuka" v-motion="customMotion(false, 300)">Objednaj</NuxtLink>
+        <a href="#reviews" class="btn-outlined" v-motion="customMotion(false, 600)">Pozri Recenzie</a>
       </div>
     </div>
     <div class="hero-background"></div>
   </section>
   <Quickinfo/>
   <section id="location">
-    <div class="heading" v-motion-slide-visible-left>
+    <div class="heading" v-motion-slide-visible-bottom>
       <h1>Lokácia</h1>
       <p class="paragraph-alt">Slovenského raja 169/23, 053 11 Smižany</p>
     </div>
     <div class="location-img"></div>
   </section>
   <section id="reviews">
-    <h1 v-motion-slide-visible-left>Recenzie</h1>
-    <p class="paragraph-alt" v-motion-slide-visible-left>Viac ako 300+ pozitívnych recenzií</p>
+    <h1 v-motion-slide-visible-bottom>Recenzie</h1>
+    <p class="paragraph-alt" v-motion-slide-visible-bottom>Viac ako 300+ pozitívnych recenzií</p>
     <Swiper
       class="swiper"
       style="--swiper-pagination-color: var(--color-primary); --swiper-pagination-bullet-inactive-color: var(--color-text);"
@@ -62,6 +62,26 @@
 </template>
 
 <script setup>
+  function customMotion(onVisible = true, delay = 0) {
+    return {
+      initial: {
+        opacity: 0,
+        x: -100,
+      },
+      [onVisible ? "visible" : "enter"]: {
+        opacity: 1,
+        x: 0,
+        transition: {
+            type: "spring",
+            stiffness: 200,
+            damping: 25,
+            mass: .5,
+            delay: 100 + delay,
+        },
+      },
+    };
+  }
+
   const reviews = [
     {
       author: "Silvia",

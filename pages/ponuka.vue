@@ -1,6 +1,6 @@
 <template>
     <section id="hero-alt">
-        <h1 v-motion-slide-visible-left>Ponuka</h1>
+        <h1 v-motion-slide-visible-bottom>Ponuka</h1>
         <div class="hero-background"></div>
     </section>
     <Quickinfo/>
@@ -19,7 +19,7 @@
     <Menu title="Šaláty" :items="salads" :is-pizza="false"/>
     <Menu title="Cestoviny" :items="pasta" :is-pizza="false"/>
     <Menu title="Ďalšie" :items="others" :is-pizza="false"/>
-    <section id="ingredients" v-motion-slide-visible-left>
+    <section id="ingredients" v-motion-slide-visible-bottom>
         <div class="heading">
             <h2>Prílohy</h2>
             <p class="paragraph-alt">Prílohy na maxi pizzu sa účtujú dvojnásobne</p>
@@ -31,7 +31,7 @@
             <li class="description-item">Syrový okraj (120g) - <span>2.50 €</span></li>
         </ul>
     </section>
-    <section id="alergens" v-motion-slide-visible-left>
+    <section id="alergens" v-motion-slide-visible-bottom>
         <div class="heading">
             <h2>Alergény</h2>
         </div>
