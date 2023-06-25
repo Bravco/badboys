@@ -102,15 +102,29 @@ li {
     list-style: none;
 }
 
-a {
+a, button {
     color: var(--color-text);
     text-decoration: none;
     cursor: pointer;
     transition: filter 300ms;
 }
 
-a:hover {
+button {
+    background: none;
+    color: var(--color-text);
+    border: none;
+    outline: none;
+}
+
+a:hover, button:hover {
     filter: opacity(50%);
+}
+
+input {
+    padding: .5rem 1rem;
+    font-size: 1rem;
+    border: none;
+    outline: none;
 }
 
 hr {
