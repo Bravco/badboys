@@ -1,6 +1,8 @@
 <template>
-    <div class="logo">
-        <NuxtLink to="/">Bad Boys<span>.</span></NuxtLink>
+    <div>
+        <div class="logo">
+            <NuxtLink to="/">Bad Boys<span>.</span></NuxtLink>
+        </div>
     </div>
 </template>
 

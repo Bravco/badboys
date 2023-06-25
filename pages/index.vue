@@ -1,64 +1,66 @@
 <template>
-  <section id="hero">
-    <div class="content" v-motion="customMotion(false)">
-      <div class="text">
-        <h1>Jedlo na úrovni</h1>
-        <p>Stručná deskripcia reštaurácie Bad Boys. Ide o krátky výstižný text, ktorý správne popisuje web stránku a pizzériu ako takú.</p>
-      </div>
-      <div class="btns">
-        <NuxtLink class="btn-primary" to="ponuka" v-motion="customMotion(false, 300)">Objednaj</NuxtLink>
-        <a href="#reviews" class="btn-outlined" v-motion="customMotion(false, 600)">Pozri Recenzie</a>
-      </div>
-    </div>
-    <div class="hero-background"></div>
-  </section>
-  <Quickinfo/>
-  <section id="location">
-    <div class="heading" v-motion-slide-visible-bottom>
-      <h1>Lokácia</h1>
-      <p class="paragraph-alt">Slovenského raja 169/23, 053 11 Smižany</p>
-    </div>
-    <div class="location-img"></div>
-  </section>
-  <section id="reviews">
-    <h1 v-motion-slide-visible-bottom>Recenzie</h1>
-    <p class="paragraph-alt" v-motion-slide-visible-bottom>Viac ako 300+ pozitívnych recenzií</p>
-    <Swiper
-      class="swiper"
-      style="--swiper-pagination-color: var(--color-primary); --swiper-pagination-bullet-inactive-color: var(--color-text);"
-      :modules="[SwiperAutoplay, SwiperPagination]"
-      :breakpoints="{
-        1024: {
-          slidesPerView: 3,
-        },
-      }"
-      :slide-next-class="'preview-slide'"
-      :slide-prev-class="'preview-slide'"
-      :slide-active-class="'active-slide'"
-      :slides-per-view="1"
-      :centered-slides="true"
-      :loop="true"
-      :autoplay="{
-        delay: 3000,
-        pauseOnMouseEnter: true,
-      }"
-      :grab-cursor="true"
-      :pagination="true"
-    >
-      <SwiperSlide v-for="review in reviews" :key="review">
-        <div class="review">
-          <Icon class="quote" name="fa6-solid:quote-right" size="4rem"/>
-          <div class="stars">
-            <Icon v-for="_ in 5" class="star-icon" name="fa6-solid:star" size="1.5rem"/>
-          </div>
-          <div class="text">
-            <h4>{{ review.author }}</h4>
-            <p>{{ review.content }}</p>
-          </div>
+  <div>
+    <section id="hero">
+      <div class="content" v-motion="customMotion(false)">
+        <div class="text">
+          <h1>Jedlo na úrovni</h1>
+          <p>Stručná deskripcia reštaurácie Bad Boys. Ide o krátky výstižný text, ktorý správne popisuje web stránku a pizzériu ako takú.</p>
         </div>
-      </SwiperSlide>
-    </Swiper>
-  </section>
+        <div class="btns">
+          <NuxtLink class="btn-primary" to="ponuka" v-motion="customMotion(false, 300)">Objednaj</NuxtLink>
+          <a href="#reviews" class="btn-outlined" v-motion="customMotion(false, 600)">Pozri Recenzie</a>
+        </div>
+      </div>
+      <div class="hero-background"></div>
+    </section>
+    <Quickinfo/>
+    <section id="location">
+      <div class="heading" v-motion-slide-visible-bottom>
+        <h1>Lokácia</h1>
+        <p class="paragraph-alt">Slovenského raja 169/23, 053 11 Smižany</p>
+      </div>
+      <div class="location-img"></div>
+    </section>
+    <section id="reviews">
+      <h1 v-motion-slide-visible-bottom>Recenzie</h1>
+      <p class="paragraph-alt" v-motion-slide-visible-bottom>Viac ako 300+ pozitívnych recenzií</p>
+      <Swiper
+        class="swiper"
+        style="--swiper-pagination-color: var(--color-primary); --swiper-pagination-bullet-inactive-color: var(--color-text);"
+        :modules="[SwiperAutoplay, SwiperPagination]"
+        :breakpoints="{
+          1024: {
+            slidesPerView: 3,
+          },
+        }"
+        :slide-next-class="'preview-slide'"
+        :slide-prev-class="'preview-slide'"
+        :slide-active-class="'active-slide'"
+        :slides-per-view="1"
+        :centered-slides="true"
+        :loop="true"
+        :autoplay="{
+          delay: 3000,
+          pauseOnMouseEnter: true,
+        }"
+        :grab-cursor="true"
+        :pagination="true"
+      >
+        <SwiperSlide v-for="review in reviews" :key="review">
+          <div class="review">
+            <Icon class="quote" name="fa6-solid:quote-right" size="4rem"/>
+            <div class="stars">
+              <Icon v-for="_ in 5" class="star-icon" name="fa6-solid:star" size="1.5rem"/>
+            </div>
+            <div class="text">
+              <h4>{{ review.author }}</h4>
+              <p>{{ review.content }}</p>
+            </div>
+          </div>
+        </SwiperSlide>
+      </Swiper>
+    </section>
+  </div>
 </template>
 
 <script setup>

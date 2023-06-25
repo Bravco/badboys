@@ -8,6 +8,12 @@ export default defineNuxtConfig({
     "@vueuse/motion/nuxt",
   ],
   css: [
-    "~/assets/main.css",
+    "@/assets/main.css",
   ],
+  app: {
+    pageTransition: {
+      name: "page",
+      mode: "out-in",
+    },
+  },
 })

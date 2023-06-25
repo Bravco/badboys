@@ -1,39 +1,41 @@
 <template>
-    <section id="menu-section">
-        <div class="heading" v-motion-slide-visible-bottom>
-            <h2>{{ title }}</h2>
-            <div class="menu-description paragraph-alt">
-                <slot name="description"></slot>
-            </div>
-        </div>
-        <ul class="menu-list">
-            <li v-for="item in items" class="menu-item" v-motion-slide-visible-bottom>
-                <img v-if="isPizza" class="menu-item-image" src="~/assets/pizza.svg" alt="item-image">
-                <img v-else class="menu-item-image" src="~/assets/salad.svg" alt="item-image">
-                <div class="menu-item-info">
-                    <div class="text">
-                        <h4>
-                            {{ item.title }}
-                            <Icon v-if="item.isVegetarian" class="vegetarian-icon" name="fa6-solid:leaf" size="1.5rem"/>
-                            <Icon v-if="item.isSpicy" class="spicy-icon" name="fa6-solid:pepper-hot" size="1.5rem"/>
-                        </h4>
-                        <p>
-                            {{ item.description }}
-                            <span v-if="item.alergens" class="alergens">({{ item.alergens }})</span>
-                        </p>
-                    </div>
-                    <h4 class="price">
-                        {{ item.miniPrice?.toFixed(2) }}
-                        <span v-if="item.miniPrice">/</span>
-                        {{ item.normalPrice.toFixed(2) }}
-                        <span v-if="item.maxiPrice">/</span>
-                        {{ item.maxiPrice?.toFixed(2) }}
-                        <span>€</span>
-                    </h4>
+    <div>
+        <section id="menu-section">
+            <div class="heading" v-motion-slide-visible-bottom>
+                <h2>{{ title }}</h2>
+                <div class="menu-description paragraph-alt">
+                    <slot name="description"></slot>
                 </div>
-            </li>
-        </ul>
-    </section>
+            </div>
+            <ul class="menu-list">
+                <li v-for="item in items" class="menu-item" v-motion-slide-visible-bottom>
+                    <img v-if="isPizza" class="menu-item-image" src="~/assets/pizza.svg" alt="item-image">
+                    <img v-else class="menu-item-image" src="~/assets/salad.svg" alt="item-image">
+                    <div class="menu-item-info">
+                        <div class="text">
+                            <h4>
+                                {{ item.title }}
+                                <Icon v-if="item.isVegetarian" class="vegetarian-icon" name="fa6-solid:leaf" size="1.5rem"/>
+                                <Icon v-if="item.isSpicy" class="spicy-icon" name="fa6-solid:pepper-hot" size="1.5rem"/>
+                            </h4>
+                            <p>
+                                {{ item.description }}
+                                <span v-if="item.alergens" class="alergens">({{ item.alergens }})</span>
+                            </p>
+                        </div>
+                        <h4 class="price">
+                            {{ item.miniPrice?.toFixed(2) }}
+                            <span v-if="item.miniPrice">/</span>
+                            {{ item.normalPrice.toFixed(2) }}
+                            <span v-if="item.maxiPrice">/</span>
+                            {{ item.maxiPrice?.toFixed(2) }}
+                            <span>€</span>
+                        </h4>
+                    </div>
+                </li>
+            </ul>
+        </section>
+    </div>
 </template>
 
 <script setup>

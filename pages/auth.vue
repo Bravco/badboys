@@ -1,24 +1,26 @@
 <template>
-    <section>
-        <form @submit.prevent="login">
-            <h4>Autentifikácia</h4>
-            <div class="inputfield">
-                <input v-model="email" id="email" name="email" type="email">
-                <label for="email">Email</label>
-            </div>
-            <div class="inputfield">
-                <Icon 
-                    @click.prevent="togglePasswordVisibility" 
-                    class="visibility" 
-                    :name="passwordVisible ? 'fa6-solid:eye-slash' : 'fa6-solid:eye'" 
-                    size="1rem"
-                />
-                <input v-model="password" id="password" name="password" :type="passwordVisible ? 'text' : 'password'">
-                <label for="password">Heslo</label>
-            </div>
-            <button class="btn-login btn-primary" type="submit">Prihlásiť sa</button>
-        </form>
-    </section>
+    <div>
+        <section>
+            <form @submit.prevent="login">
+                <h4>Autentifikácia</h4>
+                <div class="inputfield">
+                    <input v-model="email" id="email" name="email" type="email">
+                    <label for="email">Email</label>
+                </div>
+                <div class="inputfield">
+                    <Icon 
+                        @click.prevent="togglePasswordVisibility" 
+                        class="visibility" 
+                        :name="passwordVisible ? 'fa6-solid:eye-slash' : 'fa6-solid:eye'" 
+                        size="1rem"
+                    />
+                    <input v-model="password" id="password" name="password" :type="passwordVisible ? 'text' : 'password'">
+                    <label for="password">Heslo</label>
+                </div>
+                <button class="btn-login btn-primary" type="submit">Prihlásiť sa</button>
+            </form>
+        </section>
+    </div>
 </template>
 
 <script setup>
