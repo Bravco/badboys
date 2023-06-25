@@ -22,6 +22,10 @@
 </template>
 
 <script setup>
+    useHead({
+        title: "Bad Boys | Autentifikácia",
+    });
+
     definePageMeta({
         middleware: ["auth"],
     });

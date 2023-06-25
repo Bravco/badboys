@@ -62,25 +62,9 @@
 </template>
 
 <script setup>
-  function customMotion(onVisible = true, delay = 0) {
-    return {
-      initial: {
-        opacity: 0,
-        x: -100,
-      },
-      [onVisible ? "visible" : "enter"]: {
-        opacity: 1,
-        x: 0,
-        transition: {
-            type: "spring",
-            stiffness: 200,
-            damping: 25,
-            mass: .5,
-            delay: 100 + delay,
-        },
-      },
-    };
-  }
+  useHead({
+    title: "Bad Boys | Domov",
+  });
 
   const reviews = [
     {
@@ -112,6 +96,26 @@
       content: "Na základe kladných recenzií sme si vybrali tento podnik. Objednal som si pizzu pick up a manželka šalát Citroën, Pizza výborná  ( aj keď niekedy menej je viac ) - cesto fakt výborne ( a to som pochodil kopu pizzerii) Šalát zhodnotila manželka ako tiež výborný. Za nás dobrá voľba.",
     },
   ];
+
+  function customMotion(onVisible = true, delay = 0) {
+    return {
+      initial: {
+        opacity: 0,
+        x: -100,
+      },
+      [onVisible ? "visible" : "enter"]: {
+        opacity: 1,
+        x: 0,
+        transition: {
+            type: "spring",
+            stiffness: 200,
+            damping: 25,
+            mass: .5,
+            delay: 100 + delay,
+        },
+      },
+    };
+  }
 </script>
 
 <style scoped>

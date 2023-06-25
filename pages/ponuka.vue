@@ -47,6 +47,10 @@
 </template>
 
 <script setup>
+    useHead({
+        title: "Bad Boys | Ponuka",
+    });
+
     const client = useSupabaseClient();
 
     const { data: pizzas } = await useAsyncData("pizzas", async () => {

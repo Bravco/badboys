@@ -8,6 +8,10 @@
 </template>
 
 <script setup>
+    useHead({
+        title: "Bad Boys | Dashboard",
+    });
+
     definePageMeta({
         middleware: ["auth"],
     });
