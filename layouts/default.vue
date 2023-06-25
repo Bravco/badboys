@@ -9,6 +9,9 @@
                 <li :class="['nav-item', { 'active': currentRoute.fullPath === '/ponuka' }]">
                     <NuxtLink to="/ponuka">Ponuka</NuxtLink>
                 </li>
+                <li v-if="user" :class="['nav-item', { 'active': currentRoute.fullPath === '/dashboard' }]">
+                    <NuxtLink to="/dashboard">Dashboard</NuxtLink>
+                </li>
             </ul>
         </nav>
     </header>
@@ -19,7 +22,8 @@
             <div class="left">
                 <Logo/>
                 <p>Najlepšia pizzéria na celom východnom Slovensku.</p>
-                <NuxtLink class="footer-link" to="/auth">Prihlásiť sa</NuxtLink>
+                <a v-if="user" @click.prevent="logout" class="footer-link">Odhlásiť sa</a>
+                <NuxtLink v-else class="footer-link" to="/auth">Prihlásiť sa</NuxtLink>
             </div>
             <div class="right">
                 <div class="footer-item">
@@ -53,6 +57,12 @@
 
 <script setup>
     const { currentRoute } = useRouter();
+    const client = useSupabaseClient();
+    const user = useSupabaseUser();
+
+    function logout() {
+        client.auth.signOut();
+    }
 </script>
 
 <style scoped>
