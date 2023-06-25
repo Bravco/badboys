@@ -67,7 +67,7 @@
         gap: 2rem;
         padding: 3rem 2.5rem;
         background-color: var(--color-background-secondary);
-        border-radius: 1rem;
+        border-radius: .5rem;
     }
 
     .inputfield {
