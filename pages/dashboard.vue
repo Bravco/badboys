@@ -176,12 +176,12 @@
     #table {
         grid-template-columns: 12rem 1fr;
         align-content: flex-start;
+        align-items: flex-start;
         padding: 4rem 0 0 0;
     }
 
     .menu {
         width: 100%;
-        align-self: flex-start;
         display: grid;
         gap: 1rem;
     }
