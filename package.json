@@ -18,6 +18,8 @@
   "dependencies": {
     "@supabase/supabase-js": "^2.26.0",
     "@vueuse/motion": "^2.0.0",
-    "nuxt-swiper": "^1.1.1"
+    "nuxt-swiper": "^1.1.1",
+    "sass": "^1.63.6",
+    "vuetify": "^3.3.5"
   }
 }

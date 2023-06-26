@@ -15,6 +15,10 @@
     --color-text-alt: #8C8C8C;
 }
 
+.v-theme--dark {
+    --v-theme-surface: 25, 25, 25;
+}
+
 html {
     scroll-behavior: smooth;
 }

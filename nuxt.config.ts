@@ -8,12 +8,21 @@ export default defineNuxtConfig({
     "@vueuse/motion/nuxt",
   ],
   css: [
+    "vuetify/lib/styles/main.sass",
     "@/assets/main.css",
   ],
   app: {
     pageTransition: {
       name: "page",
       mode: "out-in",
+    },
+  },
+  build: {
+    transpile: ["vuetify"],
+  },
+  vite: {
+    define: {
+      "process.env.DEBUG": false,
     },
   },
 })
