@@ -100,7 +100,7 @@
             title: "Štangle",
             subtitle: stangle.value.length,
             icon: "mdi-food-takeout-box",
-            color: "orange",
+            color: "purple",
         },
         {
             id: 2,
@@ -114,7 +114,7 @@
             title: "Cestoviny",
             subtitle: pasta.value.length,
             icon: "mdi-pasta",
-            color: "yellow",
+            color: "orange",
         },
         {
             id: 4,
