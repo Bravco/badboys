@@ -8,6 +8,7 @@ export default defineNuxtConfig({
     "@vueuse/motion/nuxt",
   ],
   css: [
+    "@mdi/font/css/materialdesignicons.css",
     "vuetify/lib/styles/main.sass",
     "@/assets/main.css",
   ],

@@ -8,11 +8,12 @@
                     :headers="headers"
                     :items="pizzas"
                     :search="search"
-                    sort-icon="mdi-unfold-more-horizontal"
+                    sortAscIcon="mdi-menu-up"
+                    sortDescIcon="mdi-menu-down"
                 >
                     <template v-slot:top>
                         <Icon class="search-icon" name="fa:search" size="1rem"/>
-                        <input v-model="search" type="text" placeholder="Vyhľadaj">
+                        <input v-model="search" type="text" placeholder="Vyhľadaj...">
                     </template>
                     <template v-slot:item.isVegetarian="{ item }">
                         <v-chip :color="item.raw.isVegetarian ? 'green' : 'red'">
@@ -75,8 +76,8 @@
     }
 
     #table {
-        align-content: flex-end;
-        padding: unset;
+        align-content: flex-start;
+        padding: 4rem 0 0 0;
     }
 
     .search-icon {
