@@ -1,12 +1,30 @@
 <template>
     <div>
         <section id="table">
+            <v-list class="menu" theme="dark" :selected="selectedMenuItem">
+                <v-list-subheader>Menu</v-list-subheader>
+                <v-list-item
+                    v-for="(item, index) in menuItems"
+                    :key="index"
+                    :value="item.id"
+                    :title="item.title"
+                    :subtitle="item.subtitle"
+                    @click="selectMenuItem(item.id)"
+                    color="primary"
+                >
+                    <template v-slot:prepend>
+                        <v-avatar :color="item.color">
+                            <v-icon color="white" :icon="item.icon"></v-icon>
+                        </v-avatar>
+                    </template>
+                </v-list-item>
+            </v-list>
             <ClientOnly>
                 <v-data-table
                     class="table"
                     theme="dark"
                     :headers="headers"
-                    :items="pizzas"
+                    :items="getSelectedMenu()"
                     :search="search"
                     sortAscIcon="mdi-menu-up"
                     sortDescIcon="mdi-menu-down"
@@ -40,6 +58,72 @@
         middleware: ["auth"],
     });
 
+    const client = useSupabaseClient();
+    const user = useSupabaseUser();
+
+    const { data: pizzas } = await useAsyncData("pizzas", async () => {
+        const { data } = (await client.from("pizzas").select().order("id"));
+        return data;
+    });
+
+    const { data: stangle } = await useAsyncData("stangle", async () => {
+        const { data } = (await client.from("stangle").select().order("id"));
+        return data;
+    });
+
+    const { data: salads } = await useAsyncData("salads", async () => {
+        const { data } = (await client.from("salads").select().order("id"));
+        return data;
+    });
+
+    const { data: pasta } = await useAsyncData("pasta", async () => {
+        const { data } = (await client.from("pasta").select().order("id"));
+        return data;
+    });
+
+    const { data: others } = await useAsyncData("others", async () => {
+        const { data } = (await client.from("others").select().order("id"));
+        return data;
+    });
+    
+    const selectedMenuItem = ref([0]);
+    const menuItems = ref([
+        {
+            id: 0,
+            title: "Pizza",
+            subtitle: pizzas.value.length,
+            icon: "mdi-pizza",
+            color: "red",
+        },
+        {
+            id: 1,
+            title: "Štangle",
+            subtitle: stangle.value.length,
+            icon: "mdi-food-takeout-box",
+            color: "orange",
+        },
+        {
+            id: 2,
+            title: "Šaláty",
+            subtitle: salads.value.length,
+            icon: "mdi-apple",
+            color: "green",
+        },
+        {
+            id: 3,
+            title: "Cestoviny",
+            subtitle: pasta.value.length,
+            icon: "mdi-pasta",
+            color: "yellow",
+        },
+        {
+            id: 4,
+            title: "Ďalšie",
+            subtitle: others.value.length,
+            icon: "mdi-food",
+            color: "blue",
+        },
+    ]);
     const search = ref("");
     const headers = [
         { title: "#", key: "id" },
@@ -49,17 +133,35 @@
         { title: "(€) Normálna Cena", key: "normalPrice" },
         { title: "(€) Mini Cena", key: "miniPrice" },
         { title: "(€) Maxi Cena", key: "maxiPrice" },
-        { title: "Vegetariánska", key: "isVegetarian" },
-        { title: "Pikantná", key: "isSpicy" },
+        { title: "Vegetariánske", key: "isVegetarian" },
+        { title: "Pikantné", key: "isSpicy" },
     ];
-    
-    const client = useSupabaseClient();
-    const user = useSupabaseUser();
 
-    const { data: pizzas } = await useAsyncData("pizzas", async () => {
-        const { data } = (await client.from("pizzas").select().order("id"));
-        return data;
-    });
+    function selectMenuItem(id) {
+        selectedMenuItem.value = [id];
+    }
+
+    function getSelectedMenu() {
+        switch (selectedMenuItem.value["0"]) {
+            case 0:
+                return pizzas.value;
+            
+            case 1:
+                return stangle.value;
+            
+            case 2:
+                return salads.value;
+            
+            case 3:
+                return pasta.value;
+            
+            case 4:
+                return others.value;
+            
+            default:
+                return pizzas.value;
+        }
+    }
 
     onMounted(() => {
         watchEffect(() => {
@@ -71,13 +173,17 @@
 </script>
 
 <style scoped>
-    .v-theme-dark {
-        --v-theme-surface: (25, 25, 25);
-    }
-
     #table {
+        grid-template-columns: 12rem 1fr;
         align-content: flex-start;
         padding: 4rem 0 0 0;
+    }
+
+    .menu {
+        width: 100%;
+        align-self: flex-start;
+        display: grid;
+        gap: 1rem;
     }
 
     .search-icon {

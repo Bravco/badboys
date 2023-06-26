@@ -16,6 +16,7 @@
 }
 
 .v-theme--dark {
+    --v-theme-primary: 255, 66, 66;
     --v-theme-surface: 25, 25, 25;
 }
 
