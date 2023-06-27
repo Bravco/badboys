@@ -21,11 +21,19 @@
         <div class="content">
             <div class="left">
                 <Logo/>
-                <p>Najlepšia pizzéria na celom východnom Slovensku.</p>
+                <p>Najlepšia pizza na celom východnom Slovensku.</p>
                 <a v-if="user" @click.prevent="logout" class="footer-link">Odhlásiť sa</a>
                 <NuxtLink v-else class="footer-link" to="/auth">Prihlásiť sa</NuxtLink>
             </div>
             <div class="right">
+                <div class="footer-item">
+                    <h4>Navigácia</h4>
+                    <ul>
+                        <li><NuxtLink to="/">Domov</NuxtLink></li>
+                        <li><NuxtLink to="/ponuka">Ponuka</NuxtLink></li>
+                        <li v-if="user"><NuxtLink to="/dashboard">Dashboard</NuxtLink></li>
+                    </ul>
+                </div>
                 <div class="footer-item">
                     <h4>Otváracie hodiny</h4>
                     <ul>

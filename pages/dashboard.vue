@@ -190,4 +190,14 @@
         margin-left: .75rem;
         color: var(--color-text-alt);
     }
+
+    @media only screen and (max-width: 1280px) {
+        #table {
+            grid-template-columns: 1fr;
+        }
+
+        .menu {
+            display: flex;
+        }
+    }
 </style>
