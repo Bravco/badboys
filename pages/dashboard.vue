@@ -43,6 +43,13 @@
                             {{ item.raw.isSpicy ? "Áno" : "Nie" }}
                         </v-chip>
                     </template>
+                    <template v-slot:item.actions="{ item }">
+                        <v-icon class="me-2" size="small" @click="">mdi-pencil</v-icon>
+                        <v-icon size="small" @click="">mdi-delete</v-icon>
+                    </template>
+                    <template v-slot:no-data>
+                        <p>Žiadne výsledky</p>
+                    </template>
                 </v-data-table>
             </ClientOnly>
         </section>
@@ -135,6 +142,7 @@
         { title: "(€) Maxi Cena", key: "maxiPrice" },
         { title: "Vegetariánske", key: "isVegetarian" },
         { title: "Pikantné", key: "isSpicy" },
+        { title: "", key: "actions", sortable: false },
     ];
 
     function selectMenuItem(id) {
