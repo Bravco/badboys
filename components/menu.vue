@@ -24,11 +24,11 @@
                             </p>
                         </div>
                         <h4 class="price">
-                            {{ item.miniPrice?.toFixed(2) }}
+                            {{ item.miniPrice ? item.miniPrice.toFixed(2) : null }}
                             <span v-if="item.miniPrice">/</span>
-                            {{ item.normalPrice.toFixed(2) }}
+                            {{ item.normalPrice ? item.normalPrice.toFixed(2) : null }}
                             <span v-if="item.maxiPrice">/</span>
-                            {{ item.maxiPrice?.toFixed(2) }}
+                            {{ item.maxiPrice ? item.maxiPrice.toFixed(2) : null }}
                             <span>€</span>
                         </h4>
                     </div>
