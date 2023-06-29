@@ -55,29 +55,38 @@
 
     const client = useSupabaseClient();
 
-    const { data: pizzas } = await useAsyncData("pizzas", async () => {
-        const { data } = (await client.from("pizzas").select().order("id"));
+    async function fetchTableData(tableName) {
+        const { data } = await client.from(tableName).select().order("id");
         return data;
+    }
+
+    const { data: pizzas } = await useAsyncData("pizzas", async () => fetchTableData("pizzas"));
+    const { data: stangle } = await useAsyncData("stangle", async () => fetchTableData("stangle"));
+    const { data: salads } = await useAsyncData("salads", async () => fetchTableData("salads"));
+    const { data: pasta } = await useAsyncData("pasta", async () => fetchTableData("pasta"));
+    const { data: others } = await useAsyncData("others", async () => fetchTableData("others"));
+
+    let channel;
+    onMounted(() => {
+        channel = client.channel("changes").on(
+            "postgres_changes",
+            {
+                event: "*",
+                schema: "public",
+                table: "*",
+            },
+            async (payload) => {
+                const { data: pizzas } = await useAsyncData("pizzas", async () => fetchTableData("pizzas"));
+                const { data: stangle } = await useAsyncData("stangle", async () => fetchTableData("stangle"));
+                const { data: salads } = await useAsyncData("salads", async () => fetchTableData("salads"));
+                const { data: pasta } = await useAsyncData("pasta", async () => fetchTableData("pasta"));
+                const { data: others } = await useAsyncData("others", async () => fetchTableData("others"));
+            },
+        ).subscribe();
     });
 
-    const { data: stangle } = await useAsyncData("stangle", async () => {
-        const { data } = (await client.from("stangle").select().order("id"));
-        return data;
-    });
-
-    const { data: salads } = await useAsyncData("salads", async () => {
-        const { data } = (await client.from("salads").select().order("id"));
-        return data;
-    });
-
-    const { data: pasta } = await useAsyncData("pasta", async () => {
-        const { data } = (await client.from("pasta").select().order("id"));
-        return data;
-    });
-
-    const { data: others } = await useAsyncData("others", async () => {
-        const { data } = (await client.from("others").select().order("id"));
-        return data;
+    onUnmounted(() => {
+        channel.unsubscribe();
     });
 </script>
 

@@ -70,6 +70,9 @@
                             </v-dialog>
                         </v-toolbar>
                     </template>
+                    <template v-slot:item.id="{ item }">
+                        <p>{{ selectedMenu.indexOf(item.raw)+1 }}</p>
+                    </template>
                     <template v-slot:item.isVegetarian="{ item }">
                         <v-chip :color="item.raw.isVegetarian ? 'green' : 'red'">
                             {{ item.raw.isVegetarian ? "Áno" : "Nie" }}
@@ -107,30 +110,16 @@
     const client = useSupabaseClient();
     const user = useSupabaseUser();
 
-    const { data: pizzas } = await useAsyncData("pizzas", async () => {
-        const { data } = (await client.from("pizzas").select().order("id"));
+    async function fetchTableData(tableName) {
+        const { data } = await client.from(tableName).select().order("id");
         return data;
-    });
+    }
 
-    const { data: stangle } = await useAsyncData("stangle", async () => {
-        const { data } = (await client.from("stangle").select().order("id"));
-        return data;
-    });
-
-    const { data: salads } = await useAsyncData("salads", async () => {
-        const { data } = (await client.from("salads").select().order("id"));
-        return data;
-    });
-
-    const { data: pasta } = await useAsyncData("pasta", async () => {
-        const { data } = (await client.from("pasta").select().order("id"));
-        return data;
-    });
-
-    const { data: others } = await useAsyncData("others", async () => {
-        const { data } = (await client.from("others").select().order("id"));
-        return data;
-    });
+    const { data: pizzas } = await useAsyncData("pizzas", async () => fetchTableData("pizzas"));
+    const { data: stangle } = await useAsyncData("stangle", async () => fetchTableData("stangle"));
+    const { data: salads } = await useAsyncData("salads", async () => fetchTableData("salads"));
+    const { data: pasta } = await useAsyncData("pasta", async () => fetchTableData("pasta"));
+    const { data: others } = await useAsyncData("others", async () => fetchTableData("others"));
     
     const selectedMenuIndex = ref([0]);
     const menuItems = ref([
@@ -242,12 +231,32 @@
         closeDelete();
     }
 
+    let channel;
     onMounted(() => {
         watchEffect(() => {
             if (!user.value) {
                 navigateTo("/auth");
             }
         });
+        channel = client.channel("changes").on(
+            "postgres_changes",
+            {
+                event: "*",
+                schema: "public",
+                table: "*",
+            },
+            async (payload) => {
+                const { data: pizzas } = await useAsyncData("pizzas", async () => fetchTableData("pizzas"));
+                const { data: stangle } = await useAsyncData("stangle", async () => fetchTableData("stangle"));
+                const { data: salads } = await useAsyncData("salads", async () => fetchTableData("salads"));
+                const { data: pasta } = await useAsyncData("pasta", async () => fetchTableData("pasta"));
+                const { data: others } = await useAsyncData("others", async () => fetchTableData("others"));
+            },
+        ).subscribe();
+    });
+
+    onUnmounted(() => {
+        channel.unsubscribe();
     });
 </script>
 
