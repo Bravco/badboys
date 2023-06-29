@@ -40,7 +40,7 @@
                                 </template>
                                 <v-card>
                                     <v-card-title>
-                                        <h4>{{ editedItem === null ? "Pridať položku" : `Úprava položky ${editedItem.title}` }}</h4>
+                                        <h4>{{ formTitle }}</h4>
                                     </v-card-title>
 
                                     <v-card-text>
@@ -163,6 +163,7 @@
     const dialog = ref(false);
     const dialogDelete = ref(false);
     const editedItem = ref(null);
+    const editedIndex = ref(-1);
     const search = ref("");
     const headers = [
         { title: "#", key: "id" },
@@ -176,6 +177,12 @@
         { title: "Pikantné", key: "isSpicy" },
         { title: "", key: "actions", sortable: false },
     ];
+
+    const formTitle = computed(() => {
+        return editedIndex.value === -1
+            ? "Pridať položku"
+            : `Úprava položky ${editedItem.value === null ? "" : editedItem.value.title}`;
+    });
 
     const selectedMenu = computed(() => {
         switch (selectedMenuIndex.value["0"]) {
@@ -205,29 +212,43 @@
 
     function close() {
         dialog.value = false;
-        editedItem.value = null;
+        nextTick(() => {
+            editedItem.value = null;
+            editedIndex.value = -1;
+        });
     }
 
     function closeDelete() {
         dialogDelete.value = false;
-        editedItem.value = null;
+        nextTick(() => {
+            editedItem.value = null;
+            editedIndex.value = -1;
+        });
     }
 
     function save() {
+        if (editedIndex.value > -1) {
+            // TODO: Edit selected item
+        } else {
+            // TODO: Add new item
+        }
         close();
     }
 
     function editItem(item) {
+        editedIndex.value = selectedMenu.value.indexOf(item);
         editedItem.value = item;
         dialog.value = true;
     }
 
     function deleteItem(item) {
+        editedIndex.value = selectedMenu.value.indexOf(item);
         editedItem.value = item;
         dialogDelete.value = true;
     }
 
     function deleteItemConfirm() {
+        // TODO: Delete selected item
         closeDelete();
     }
 
