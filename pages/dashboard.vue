@@ -1,14 +1,14 @@
 <template>
     <div>
         <section id="table">
-            <v-list class="menu" theme="dark" :selected="selectedMenuItem">
+            <v-list class="menu" theme="dark" :selected="selectedMenuIndex">
                 <v-list-subheader>Menu</v-list-subheader>
                 <v-list-item
                     v-for="(item, index) in menuItems"
                     :key="index"
                     :value="item.id"
                     :title="item.title"
-                    :subtitle="item.subtitle"
+                    :subtitle="item.count"
                     @click="selectMenuItem(item.id)"
                     color="primary"
                 >
@@ -24,14 +24,51 @@
                     class="table"
                     theme="dark"
                     :headers="headers"
-                    :items="getSelectedMenu()"
+                    :items="selectedMenu"
                     :search="search"
                     sortAscIcon="mdi-menu-up"
                     sortDescIcon="mdi-menu-down"
                 >
                     <template v-slot:top>
-                        <Icon class="search-icon" name="fa:search" size="1rem"/>
-                        <input v-model="search" type="text" placeholder="Vyhľadaj...">
+                        <v-toolbar class="toolbar">
+                            <Icon class="search-icon" name="fa:search" size="1rem"/>
+                            <input v-model="search" type="text" placeholder="Vyhľadaj...">
+                            <v-spacer></v-spacer>
+                            <v-dialog v-model="dialog" persistent max-width="500px">
+                                <template v-slot:activator="{ props }">
+                                    <v-btn color="primary" v-bind="props">Pridať položku</v-btn>
+                                </template>
+                                <v-card>
+                                    <v-card-title>
+                                        <h4>{{ editedItem === null ? "Pridať položku" : `Úprava položky ${editedItem.title}` }}</h4>
+                                    </v-card-title>
+
+                                    <v-card-text>
+                                    </v-card-text>
+
+                                    <v-card-actions>
+                                        <v-spacer></v-spacer>
+                                        <v-btn variant="text" @click="close">Zrušiť</v-btn>
+                                        <v-btn color="primary" variant="text" @click="save">Uložiť</v-btn>
+                                    </v-card-actions>
+                                </v-card>
+                            </v-dialog>
+                            <v-dialog v-model="dialogDelete" persistent max-width="500px">
+                                <v-card>
+                                    <v-card-title>
+                                        <h4>
+                                            {{ `Naozaj chcete odstrániť položku ${editedItem === null ? "" : editedItem.title}?` }}
+                                        </h4>
+                                    </v-card-title>
+                                    <v-card-actions>
+                                        <v-spacer></v-spacer>
+                                        <v-btn color="primary" variant="text" @click="closeDelete">Nie</v-btn>
+                                        <v-btn variant="text" @click="deleteItemConfirm">Áno</v-btn>
+                                        <v-spacer></v-spacer>
+                                    </v-card-actions>
+                                </v-card>
+                            </v-dialog>
+                        </v-toolbar>
                     </template>
                     <template v-slot:item.isVegetarian="{ item }">
                         <v-chip :color="item.raw.isVegetarian ? 'green' : 'red'">
@@ -44,8 +81,10 @@
                         </v-chip>
                     </template>
                     <template v-slot:item.actions="{ item }">
-                        <v-icon class="me-2" size="small" @click="">mdi-pencil</v-icon>
-                        <v-icon size="small" @click="">mdi-delete</v-icon>
+                        <div class="actions">
+                            <v-icon class="me-2" size="small" @click="editItem(item.raw)">mdi-pencil</v-icon>
+                            <v-icon size="small" @click="deleteItem(item.raw)">mdi-delete</v-icon>
+                        </div>
                     </template>
                     <template v-slot:no-data>
                         <p>Žiadne výsledky</p>
@@ -93,44 +132,48 @@
         return data;
     });
     
-    const selectedMenuItem = ref([0]);
+    const selectedMenuIndex = ref([0]);
     const menuItems = ref([
         {
             id: 0,
             title: "Pizza",
-            subtitle: pizzas.value.length,
+            count: pizzas.value.length,
             icon: "mdi-pizza",
             color: "red",
         },
         {
             id: 1,
             title: "Štangle",
-            subtitle: stangle.value.length,
+            count: stangle.value.length,
             icon: "mdi-food-takeout-box",
             color: "purple",
         },
         {
             id: 2,
             title: "Šaláty",
-            subtitle: salads.value.length,
+            count: salads.value.length,
             icon: "mdi-apple",
             color: "green",
         },
         {
             id: 3,
             title: "Cestoviny",
-            subtitle: pasta.value.length,
+            count: pasta.value.length,
             icon: "mdi-pasta",
             color: "orange",
         },
         {
             id: 4,
             title: "Ďalšie",
-            subtitle: others.value.length,
+            count: others.value.length,
             icon: "mdi-food",
             color: "blue",
         },
     ]);
+
+    const dialog = ref(false);
+    const dialogDelete = ref(false);
+    const editedItem = ref(null);
     const search = ref("");
     const headers = [
         { title: "#", key: "id" },
@@ -145,12 +188,8 @@
         { title: "", key: "actions", sortable: false },
     ];
 
-    function selectMenuItem(id) {
-        selectedMenuItem.value = [id];
-    }
-
-    function getSelectedMenu() {
-        switch (selectedMenuItem.value["0"]) {
+    const selectedMenu = computed(() => {
+        switch (selectedMenuIndex.value["0"]) {
             case 0:
                 return pizzas.value;
             
@@ -169,6 +208,38 @@
             default:
                 return pizzas.value;
         }
+    });
+
+    function selectMenuItem(id) {
+        selectedMenuIndex.value = [id];
+    }
+
+    function close() {
+        dialog.value = false;
+        editedItem.value = null;
+    }
+
+    function closeDelete() {
+        dialogDelete.value = false;
+        editedItem.value = null;
+    }
+
+    function save() {
+        close();
+    }
+
+    function editItem(item) {
+        editedItem.value = item;
+        dialog.value = true;
+    }
+
+    function deleteItem(item) {
+        editedItem.value = item;
+        dialogDelete.value = true;
+    }
+
+    function deleteItemConfirm() {
+        closeDelete();
     }
 
     onMounted(() => {
@@ -185,7 +256,7 @@
         grid-template-columns: 12rem 1fr;
         align-content: flex-start;
         align-items: flex-start;
-        padding: 4rem 0 0 0;
+        padding: 5rem 0 0 0;
     }
 
     .menu {
@@ -194,9 +265,17 @@
         gap: 1rem;
     }
 
+    .toolbar {
+        background-color: transparent;
+    }
+
     .search-icon {
         margin-left: .75rem;
         color: var(--color-text-alt);
+    }
+
+    .actions {
+        display: flex;
     }
 
     @media only screen and (max-width: 1280px) {

@@ -67,7 +67,7 @@
   useHead({
     title: "Bad Boys | Domov",
   });
-
+  
   const reviews = [
     {
       author: "Silvia",
