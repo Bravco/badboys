@@ -24,7 +24,7 @@
                     class="table"
                     theme="dark"
                     :headers="headers"
-                    :items="selectedMenu"
+                    :items="selectedMenu.items"
                     :search="search"
                     sortAscIcon="mdi-menu-up"
                     sortDescIcon="mdi-menu-down"
@@ -71,7 +71,7 @@
                         </v-toolbar>
                     </template>
                     <template v-slot:item.id="{ item }">
-                        <p>{{ selectedMenu.indexOf(item.raw)+1 }}</p>
+                        <p>{{ selectedMenu.items.indexOf(item.raw)+1 }}</p>
                     </template>
                     <template v-slot:item.isVegetarian="{ item }">
                         <v-chip :color="item.raw.isVegetarian ? 'green' : 'red'">
@@ -185,24 +185,44 @@
     });
 
     const selectedMenu = computed(() => {
+        let items = null;
+        let table = null;
+
         switch (selectedMenuIndex.value["0"]) {
             case 0:
-                return pizzas.value;
+                table = "pizzas";
+                items = pizzas.value;
+                break;
             
             case 1:
-                return stangle.value;
+                table = "stangle";
+                items = stangle.value;
+                break;
             
             case 2:
-                return salads.value;
+                table = "salads";
+                items = salads.value;
+                break;
             
             case 3:
-                return pasta.value;
+                table = "pasta";
+                items = pasta.value;
+                break;
             
             case 4:
-                return others.value;
+                table = "others";
+                items = others.value;
+                break;
             
             default:
-                return pizzas.value;
+                table = "pizzas";
+                items = pizzas.value;
+                break;
+        }
+
+        return {
+            table: table,
+            items: items,
         }
     });
 
@@ -236,13 +256,13 @@
     }
 
     function editItem(item) {
-        editedIndex.value = selectedMenu.value.indexOf(item);
+        editedIndex.value = selectedMenu.value.items.indexOf(item);
         editedItem.value = item;
         dialog.value = true;
     }
 
     function deleteItem(item) {
-        editedIndex.value = selectedMenu.value.indexOf(item);
+        editedIndex.value = selectedMenu.value.items.indexOf(item);
         editedItem.value = item;
         dialogDelete.value = true;
     }
