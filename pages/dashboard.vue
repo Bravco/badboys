@@ -34,7 +34,7 @@
                             <Icon class="search-icon" name="fa:search" size="1rem"/>
                             <input v-model="search" type="text" placeholder="Vyhľadaj...">
                             <v-spacer></v-spacer>
-                            <v-dialog v-model="dialog" persistent max-width="500px">
+                            <v-dialog v-model="dialog" persistent max-width="32rem">
                                 <template v-slot:activator="{ props }">
                                     <v-btn color="primary" v-bind="props">Pridať položku</v-btn>
                                 </template>
@@ -44,6 +44,64 @@
                                     </v-card-title>
 
                                     <v-card-text>
+                                        <v-container>
+                                            <v-row>
+                                                <v-col>
+                                                    <v-text-field
+                                                        v-model="editedItem.title"
+                                                        label="Názov"
+                                                    ></v-text-field>
+                                                </v-col>
+                                                <v-col>
+                                                    <v-text-field
+                                                        v-model="editedItem.alergens"
+                                                        label="Alergény"
+                                                    ></v-text-field>
+                                                </v-col>
+                                            </v-row>
+                                            <v-row>
+                                                <v-col>
+                                                    <v-text-field
+                                                        v-model="editedItem.description"
+                                                        label="Deskripcia"
+                                                    ></v-text-field>
+                                                </v-col>
+                                            </v-row>
+                                            <v-row>
+                                                <v-col>
+                                                    <v-text-field
+                                                        v-model="editedItem.miniPrice"
+                                                        prefix="€"
+                                                        label="Mini cena"
+                                                        type="number"
+                                                    ></v-text-field>
+                                                </v-col>
+                                                <v-col>
+                                                    <v-text-field
+                                                        v-model="editedItem.normalPrice"
+                                                        prefix="€"
+                                                        label="Classic cena"
+                                                        type="number"
+                                                    ></v-text-field>
+                                                </v-col>
+                                                <v-col>
+                                                    <v-text-field
+                                                        v-model="editedItem.maxiPrice"
+                                                        prefix="€"
+                                                        label="Maxi cena"
+                                                        type="number"
+                                                    ></v-text-field>
+                                                </v-col>
+                                            </v-row>
+                                            <v-row>
+                                                <v-col>
+                                                    <v-checkbox v-model="editedItem.isVegetarian" color="green" label="Vegetariánske"></v-checkbox>
+                                                </v-col>
+                                                <v-col>
+                                                    <v-checkbox v-model="editedItem.isSpicy" color="red" label="Pikantné"></v-checkbox>
+                                                </v-col>
+                                            </v-row>
+                                        </v-container>
                                     </v-card-text>
 
                                     <v-card-actions>
@@ -53,7 +111,7 @@
                                     </v-card-actions>
                                 </v-card>
                             </v-dialog>
-                            <v-dialog v-model="dialogDelete" persistent max-width="500px">
+                            <v-dialog v-model="dialogDelete" persistent max-width="32rem">
                                 <v-card>
                                     <v-card-title>
                                         <h4>
@@ -162,7 +220,7 @@
 
     const dialog = ref(false);
     const dialogDelete = ref(false);
-    const editedItem = ref(null);
+    const editedItem = ref({});
     const editedIndex = ref(-1);
     const search = ref("");
     const headers = [
@@ -181,7 +239,7 @@
     const formTitle = computed(() => {
         return editedIndex.value === -1
             ? "Pridať položku"
-            : `Úprava položky ${editedItem.value === null ? "" : editedItem.value.title}`;
+            : `Úprava položky ${editedItem.value === {} ? "" : editedItem.value.title}`;
     });
 
     const selectedMenu = computed(() => {
@@ -233,7 +291,7 @@
     function close() {
         dialog.value = false;
         nextTick(() => {
-            editedItem.value = null;
+            editedItem.value = {};
             editedIndex.value = -1;
         });
     }
@@ -241,16 +299,16 @@
     function closeDelete() {
         dialogDelete.value = false;
         nextTick(() => {
-            editedItem.value = null;
+            editedItem.value = {};
             editedIndex.value = -1;
         });
     }
 
-    function save() {
+    async function save() {
         if (editedIndex.value > -1) {
             // TODO: Edit selected item
         } else {
-            // TODO: Add new item
+            await client.from(selectedMenu.value.table).insert([editedItem.value]).single();
         }
         close();
     }
@@ -267,8 +325,8 @@
         dialogDelete.value = true;
     }
 
-    function deleteItemConfirm() {
-        // TODO: Delete selected item
+    async function deleteItemConfirm() {
+        await client.from(selectedMenu.value.table).delete().match({ id: editedItem.value.id });
         closeDelete();
     }
 
