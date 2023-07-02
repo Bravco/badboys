@@ -3,8 +3,8 @@
     <section id="hero">
       <div class="content" v-motion="customMotion(false)">
         <div class="text">
-          <h1>Jedlo na úrovni</h1>
-          <p>Stručná deskripcia reštaurácie Bad Boys. Ide o krátky výstižný text, ktorý správne popisuje web stránku a pizzériu ako takú.</p>
+          <h1>Gurmánska jazda</h1>
+          <p>Vášeň pre autá, jedlo na úrovni a nezabudnuteľný gastronomický zážitok na jednom mieste.</p>
         </div>
         <div class="btns">
           <NuxtLink class="btn-primary" to="ponuka" v-motion="customMotion(false, 300)">Objednaj</NuxtLink>
@@ -136,7 +136,7 @@
   }
 
   .content .text p {
-    width: 50%;
+    max-inline-size: 70%;
   }
 
   .content .btns {
