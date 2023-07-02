@@ -227,8 +227,8 @@
         normalPrice: null,
         miniPrice: null,
         maxiPrice: null,
-        isVegetarian: null,
-        isSpicy: null,
+        isVegetarian: false,
+        isSpicy: false,
     };
     const editedItem = ref(defaultItem);
     const editedIndex = ref(-1);
@@ -238,8 +238,8 @@
         { title: "Názov", key: "title" },
         { title: "Deskripcia", key: "description", sortable: false },
         { title: "Alergény", key: "alergens", sortable: false },
-        { title: "(€) Normálna Cena", key: "normalPrice" },
         { title: "(€) Mini Cena", key: "miniPrice" },
+        { title: "(€) Normálna Cena", key: "normalPrice" },
         { title: "(€) Maxi Cena", key: "maxiPrice" },
         { title: "Vegetariánske", key: "isVegetarian" },
         { title: "Pikantné", key: "isSpicy" },
@@ -316,6 +316,12 @@
 
     async function save() {
         if (editedIndex.value > -1) {
+            for (const key in editedItem.value) {
+                const value = editedItem.value[key];
+                if ((key != "isVegetarian" && key != "isSpicy") &&(value === "" || value == 0)) {
+                    editedItem.value[key] = null;
+                }
+            }
             await client.from(selectedMenu.value.table).update(editedItem.value).eq("id", editedItem.value.id);
         } else {
             await client.from(selectedMenu.value.table).insert(editedItem.value);
