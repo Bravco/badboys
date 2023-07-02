@@ -115,7 +115,7 @@
                                 <v-card>
                                     <v-card-title>
                                         <h4>
-                                            {{ `Naozaj chcete odstrániť položku ${editedItem === null ? "" : editedItem.title}?` }}
+                                            {{ `Naozaj chcete odstrániť položku ${editedItem.title}?` }}
                                         </h4>
                                     </v-card-title>
                                     <v-card-actions>
@@ -220,7 +220,17 @@
 
     const dialog = ref(false);
     const dialogDelete = ref(false);
-    const editedItem = ref({});
+    const defaultItem = {
+        title: null,
+        description: null,
+        alergens: null,
+        normalPrice: null,
+        miniPrice: null,
+        maxiPrice: null,
+        isVegetarian: null,
+        isSpicy: null,
+    };
+    const editedItem = ref(defaultItem);
     const editedIndex = ref(-1);
     const search = ref("");
     const headers = [
@@ -239,7 +249,7 @@
     const formTitle = computed(() => {
         return editedIndex.value === -1
             ? "Pridať položku"
-            : `Úprava položky ${editedItem.value === {} ? "" : editedItem.value.title}`;
+            : `Úprava položky ${editedItem.value.title}`;
     });
 
     const selectedMenu = computed(() => {
@@ -291,7 +301,7 @@
     function close() {
         dialog.value = false;
         nextTick(() => {
-            editedItem.value = {};
+            editedItem.value = defaultItem;
             editedIndex.value = -1;
         });
     }
@@ -299,29 +309,29 @@
     function closeDelete() {
         dialogDelete.value = false;
         nextTick(() => {
-            editedItem.value = {};
+            editedItem.value = defaultItem;
             editedIndex.value = -1;
         });
     }
 
     async function save() {
         if (editedIndex.value > -1) {
-            // TODO: Edit selected item
+            await client.from(selectedMenu.value.table).update(editedItem.value).eq("id", editedItem.value.id);
         } else {
-            await client.from(selectedMenu.value.table).insert([editedItem.value]).single();
+            await client.from(selectedMenu.value.table).insert(editedItem.value);
         }
         close();
     }
 
     function editItem(item) {
         editedIndex.value = selectedMenu.value.items.indexOf(item);
-        editedItem.value = item;
+        editedItem.value = Object.assign({}, defaultItem, item);
         dialog.value = true;
     }
 
     function deleteItem(item) {
         editedIndex.value = selectedMenu.value.items.indexOf(item);
-        editedItem.value = item;
+        editedItem.value = Object.assign({}, defaultItem, item);
         dialogDelete.value = true;
     }
 
