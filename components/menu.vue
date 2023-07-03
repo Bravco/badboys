@@ -9,8 +9,11 @@
             </div>
             <ul class="menu-list">
                 <li v-for="item in items" class="menu-item" v-motion-slide-visible-bottom>
-                    <img v-if="isPizza" class="menu-item-image" src="~/assets/pizza.svg" alt="item-image">
-                    <img v-else class="menu-item-image" src="~/assets/salad.svg" alt="item-image">
+                    <img 
+                        class="menu-item-image" 
+                        :src="`/${isPizza ? 'pizza' : 'salad'}.svg`" 
+                        alt="item-image"
+                    >
                     <div class="menu-item-info">
                         <div class="text">
                             <h4>
@@ -88,7 +91,7 @@
 
     .menu-item-image {
         height: 6rem;
-        filter: invert(1) opacity(50%);
+        filter: invert(1) opacity(.75);
     }
 
     .menu-item-info {
