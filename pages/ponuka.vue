@@ -1,5 +1,6 @@
 <template>
     <div>
+        <Floatingitems style="--floating-items-top: 50vh"/>
         <section id="hero-alt">
             <h1 v-motion-slide-left>Ponuka</h1>
             <div class="hero-background"></div>

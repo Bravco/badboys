@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Floatingitems style="--floating-items-top: 100vh"/>
     <section id="hero">
       <div class="content" v-motion="customMotion(false)">
         <div class="text">
