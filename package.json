@@ -1,5 +1,5 @@
 {
-  "name": "nuxt-app",
+  "name": "badboys",
   "private": true,
   "scripts": {
     "build": "nuxt build",
