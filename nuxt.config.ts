@@ -13,6 +13,7 @@ export default defineNuxtConfig({
     "@/assets/main.css",
   ],
   app: {
+    baseURL: "/badboys/",
     pageTransition: {
       name: "page",
       mode: "out-in",
