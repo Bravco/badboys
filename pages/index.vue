@@ -232,7 +232,14 @@
       width: auto;
     }
 
-    .content .btns {
+    .btn-primary, .btn-outlined {
+      font-size: 1rem;
+      padding: .5rem 2rem;
+    }
+  }
+
+  @media only screen and (max-width: 512px) {
+    .btns {
       flex-direction: column;
     }
   }

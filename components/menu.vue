@@ -125,4 +125,21 @@
             grid-template-columns: 32rem;
         }
     }
+
+    @media only screen and (max-width: 768px) {
+        .menu-description {
+            flex-direction: column;
+            gap: unset;
+        }
+
+        .menu-list {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media only screen and (max-width: 512px) {
+        .menu-item {
+            gap: 1rem;
+        }
+    }
 </style>

@@ -1,8 +1,8 @@
 <template>
     <header>
         <nav>
-            <Logo/>
-            <ul class="nav-list">
+            <Logo class="logo"/>
+            <ul :class="['nav-list', {'active' : isMobileMenuActive}]">
                 <li :class="['nav-item', { 'active': currentRoute.fullPath === '/' }]">
                     <NuxtLink to="/">Domov</NuxtLink>
                 </li>
@@ -13,6 +13,9 @@
                     <NuxtLink to="/dashboard">Dashboard</NuxtLink>
                 </li>
             </ul>
+            <button @click.prevent="toggleMobileMenu" :class="['hamburger', {'active' : isMobileMenuActive}]">
+                <span class="bar"></span>
+            </button>
         </nav>
     </header>
     <slot/>
@@ -67,9 +70,14 @@
     const { currentRoute } = useRouter();
     const client = useSupabaseClient();
     const user = useSupabaseUser();
+    const isMobileMenuActive = ref(false);
 
     function logout() {
         client.auth.signOut();
+    }
+
+    function toggleMobileMenu() {
+        isMobileMenuActive.value = !isMobileMenuActive.value;
     }
 </script>
 
@@ -97,6 +105,10 @@
 
     .nav-item.active {
         border-bottom: 2px solid var(--color-primary);
+    }
+
+    .hamburger {
+        display: none;
     }
 
     footer {
@@ -156,5 +168,95 @@
     footer .copyright {
         text-align: center;
         color: var(--color-text-alt);
+    }
+
+    @media only screen and (max-width: 1024px) {
+        footer .content {
+            flex-direction: column;
+            gap: 4rem;
+        }
+
+        footer .content .right {
+            flex-direction: column;
+            gap: 2rem;
+        }
+    }
+
+    @media only screen and (max-width: 768px) {
+        .nav-list {
+            width: 100%;
+            height: 100vh;
+            opacity: 0;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            transition-property: opacity, background-color, backdrop-filter;
+            transition-duration: 300ms;
+        }
+
+        .nav-list.active {
+            opacity: 1;
+            background-color: rgba(0, 0, 0, .25);
+            backdrop-filter: blur(.5rem);
+        }
+
+        nav:has(.nav-list.active) {
+            background-color: unset;
+            backdrop-filter: unset;
+            transition-property: background-color;
+            transition-duration: 300ms;
+        }
+
+        .nav-item {
+            width: fit-content;
+            font-size: 3rem;
+        }
+
+        .nav-item.active {
+            border-width: 4px;
+        }
+
+        .logo, .hamburger {
+            z-index: 1;
+        }
+
+        .hamburger {
+            width: 2rem;
+            height: 2rem;
+            display: block;
+            position: relative;
+        }
+
+        .hamburger .bar, .hamburger::after, .hamburger::before {
+            content: "";
+            width: 100%;
+            height: .25rem;
+            display: block;
+            margin: 6px 0;
+            background-color: var(--color-text);
+            border-radius: .25rem;
+            transition: all 300ms;
+        }
+
+        .hamburger:not(.active):hover .bar {
+            background-color: var(--color-primary);
+            transform: translate(8px);
+        }
+
+        .hamburger.active .bar {
+            opacity: 0;
+        }
+
+        .hamburger.active::before {
+            transform: rotate(-45deg) translate(-7px, 7px);
+        }
+
+        .hamburger.active::after {
+            transform: rotate(45deg) translate(-7px, -7px);
+        }
     }
 </style>

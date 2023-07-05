@@ -97,4 +97,19 @@
     .text p span {
         color: var(--color-primary);
     }
+
+    @media only screen and (max-width: 768px) {
+        .info-list {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .info-item:first-child {
+            margin-right: unset;
+        }
+
+        .info-item:last-child {
+            margin-left: unset;
+        }
+    }
 </style>
