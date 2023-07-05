@@ -193,7 +193,6 @@
             position: absolute;
             top: 0;
             left: 0;
-            pointer-events: none;
             transition-property: opacity, background-color, backdrop-filter;
             transition-duration: 300ms;
         }
@@ -202,6 +201,10 @@
             opacity: 1;
             background-color: rgba(0, 0, 0, .25);
             backdrop-filter: blur(.5rem);
+        }
+
+        .nav-list:not(.active) {
+            pointer-events: none;
         }
 
         nav:has(.nav-list.active) {
