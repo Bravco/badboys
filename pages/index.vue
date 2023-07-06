@@ -4,7 +4,7 @@
     <section id="hero">
       <div class="content" v-motion="customMotion(false)">
         <div class="text">
-          <h1>Gurmánska jazda</h1>
+          <h1>Bad Boys Pizza</h1>
           <p>Vášeň pre autá, jedlo na úrovni a nezabudnuteľný gastronomický zážitok na jednom mieste.</p>
         </div>
         <div class="btns">
