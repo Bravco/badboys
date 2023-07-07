@@ -67,10 +67,14 @@
 </template>
 
 <script setup>
-    const { currentRoute } = useRouter();
+    const { currentRoute, afterEach } = useRouter();
     const client = useSupabaseClient();
     const user = useSupabaseUser();
     const isMobileMenuActive = ref(false);
+
+    afterEach(() => {
+        isMobileMenuActive.value = false;
+    });
 
     function logout() {
         client.auth.signOut();
