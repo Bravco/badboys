@@ -1,26 +1,53 @@
 <template>
     <div>
         <Floatingitems style="--floating-items-top: 50vh"/>
+        <ul class="scroll-nav">
+            <li class="scroll-item">
+                <a href="#pizza" class="dot active">
+                    <span>Pizza</span>
+                </a>
+            </li>
+            <li class="scroll-item">
+                <a href="#stangle" class="dot">
+                    <span>Štangle</span>
+                </a>
+            </li>
+            <li class="scroll-item">
+                <a href="#salads" class="dot">
+                    <span>Šaláty</span>
+                </a>
+            </li>
+            <li class="scroll-item">
+                <a href="#pasta" class="dot">
+                    <span>Cestoviny</span>
+                </a>
+            </li>
+            <li class="scroll-item">
+                <a href="#others" class="dot">
+                    <span>Ďalšie</span>
+                </a>
+            </li>
+        </ul>
         <section id="hero-alt">
             <h1 v-motion-slide-left>Ponuka</h1>
             <div class="hero-background"></div>
         </section>
         <Quickinfo/>
-        <Menu title="Pizza" :items="pizzas">
+        <Menu id="pizza" class="scroll-section" title="Pizza" :items="pizzas">
             <template v-slot:description>
                 <p>MINI - ∅ 20 cm, 300 g</p>
                 <p>CLASSIC - ∅ 30 cm, 500 g</p>
                 <p>MAXI - ∅ 50 cm, 900 g</p>
             </template>
         </Menu>
-        <Menu title="Štangle" :items="stangle">
+        <Menu id="stangle" class="scroll-section" title="Štangle" :items="stangle">
             <template v-slot:description>
                 <p>DRESING - 140 g : klasik, cesnakový, pikantný</p>
             </template>
         </Menu>
-        <Menu title="Šaláty" :items="salads" :is-pizza="false"/>
-        <Menu title="Cestoviny" :items="pasta" :is-pizza="false"/>
-        <Menu title="Ďalšie" :items="others" :is-pizza="false"/>
+        <Menu id="salads" class="scroll-section" title="Šaláty" :items="salads" :is-pizza="false"/>
+        <Menu id="pasta" class="scroll-section" title="Cestoviny" :items="pasta" :is-pizza="false"/>
+        <Menu id="others" class="scroll-section" title="Ďalšie" :items="others" :is-pizza="false"/>
         <section id="ingredients" v-motion-slide-visible-bottom>
             <div class="heading">
                 <h2>Prílohy</h2>
@@ -84,6 +111,37 @@
                 const { data: others } = await useAsyncData("others", async () => fetchTableData("others"));
             },
         ).subscribe();
+
+        const dots = document.querySelectorAll(".dot");
+
+        const removeActiveClass = () => {
+            dots.forEach(dot => {
+                dot.classList.remove("active");
+            });
+        };
+
+        const addActiveClass = (entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    console.log(entry.target.id);
+                    let currentDot = document.querySelector(`.dot[href='#${entry.target.id}']`);
+                    removeActiveClass();
+                    currentDot.classList.add("active");
+                }
+            });
+        };
+
+        const options = {
+            threshold: .2,
+        };
+
+        const observer = new IntersectionObserver(addActiveClass, options);
+
+        const sections = document.querySelectorAll(".scroll-section");
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
     });
 
     onUnmounted(() => {
@@ -94,6 +152,80 @@
 <style scoped>
     .hero-background {
         background-image: url("~/assets/hero-ponuka.png");
+    }
+
+    .scroll-section {
+        scroll-margin-top: 8rem;
+    }
+
+    .scroll-nav {
+        position: fixed;
+        top: 50%;
+        right: 2.5%;
+        transform: translateY(-50%);
+        z-index: 100;
+    }
+
+    .scroll-item {
+        position: relative;
+        text-align: right;
+    }
+
+    .scroll-item:hover .dot span {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    .scroll-item:hover .dot::before,
+    .dot.active::before {
+        border-color: var(--color-primary);
+        background-color: var(--color-primary);
+    }
+
+    .dot {
+        display: block;
+        color: var(--color-text);
+    }
+
+    .dot:hover {
+        filter: none;
+    }
+
+    .dot::before {
+        content: "";
+        width: .5rem;
+        height: .5rem;
+        display: block;
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        border: 2px solid var(--color-text);
+        border-radius: 50%;
+        transition: all 300ms;
+    }
+
+    .dot span {
+        display: inline-block;
+        padding: .5rem 1rem;
+        margin-right: 2rem;
+        background-color: var(--color-primary);
+        border-radius: .5rem;
+        transform: translateX(2rem);
+        opacity: 0;
+        transition: all 300ms;
+    }
+
+    .dot span::before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 50%;
+        right: 0;
+        transform: translate(7px, -50%);
+        border-left: 7px solid var(--color-primary);
+        border-top: 7px solid transparent;
+        border-bottom: 7px solid transparent;
     }
 
     #ingredients, #alergens {
