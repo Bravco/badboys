@@ -112,36 +112,38 @@
             },
         ).subscribe();
 
-        const dots = document.querySelectorAll(".dot");
+        setTimeout(() => {
+            const dots = document.querySelectorAll(".dot");
 
-        const removeActiveClass = () => {
-            dots.forEach(dot => {
-                dot.classList.remove("active");
+            const removeActiveClass = () => {
+                dots.forEach(dot => {
+                    dot.classList.remove("active");
+                });
+            };
+
+            const addActiveClass = (entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        console.log(entry.target.id);
+                        let currentDot = document.querySelector(`.dot[href='#${entry.target.id}']`);
+                        removeActiveClass();
+                        currentDot.classList.add("active");
+                    }
+                });
+            };
+
+            const options = {
+                threshold: .2,
+            };
+
+            const observer = new IntersectionObserver(addActiveClass, options);
+
+            const sections = document.querySelectorAll(".scroll-section");
+
+            sections.forEach(section => {
+                observer.observe(section);
             });
-        };
-
-        const addActiveClass = (entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    console.log(entry.target.id);
-                    let currentDot = document.querySelector(`.dot[href='#${entry.target.id}']`);
-                    removeActiveClass();
-                    currentDot.classList.add("active");
-                }
-            });
-        };
-
-        const options = {
-            threshold: .2,
-        };
-
-        const observer = new IntersectionObserver(addActiveClass, options);
-
-        const sections = document.querySelectorAll(".scroll-section");
-
-        sections.forEach(section => {
-            observer.observe(section);
-        });
+        }, 1000);
     });
 
     onUnmounted(() => {
