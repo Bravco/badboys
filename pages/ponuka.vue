@@ -178,10 +178,19 @@
         opacity: 1;
     }
 
-    .scroll-item:hover .dot::before,
+    .scroll-item:hover .dot:not(.active)::before {
+        background-color: var(--color-text);
+    }
+
     .dot.active::before {
         border-color: var(--color-primary);
         background-color: var(--color-primary);
+    }
+
+    .scroll-item:hover .dot::after,
+    .dot.active::after {
+        opacity: 1;
+        border-color: var(--color-primary);
     }
 
     .dot {
@@ -204,6 +213,22 @@
         transform: translateY(-50%);
         border: 2px solid var(--color-text);
         border-radius: 50%;
+        transition: all 300ms;
+    }
+
+    .dot::after {
+        content: "";
+        width: 1rem;
+        height: 1rem;
+        display: block;
+        position: absolute;
+        right: -.25rem;
+        top: 50%;
+        transform: translateY(-50%);
+        border: 2px solid var(--color-text);
+        border-radius: 50%;
+        background: transparent;
+        opacity: 0;
         transition: all 300ms;
     }
 
