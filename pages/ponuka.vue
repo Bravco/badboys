@@ -1,33 +1,26 @@
 <template>
     <div>
         <Floatingitems style="--floating-items-top: 50vh"/>
-        <ul class="scroll-nav">
-            <li class="scroll-item">
-                <a href="#pizza" class="dot active">
-                    <span>Pizza</span>
-                </a>
-            </li>
-            <li class="scroll-item">
-                <a href="#stangle" class="dot">
-                    <span>Štangle</span>
-                </a>
-            </li>
-            <li class="scroll-item">
-                <a href="#salads" class="dot">
-                    <span>Šaláty</span>
-                </a>
-            </li>
-            <li class="scroll-item">
-                <a href="#pasta" class="dot">
-                    <span>Cestoviny</span>
-                </a>
-            </li>
-            <li class="scroll-item">
-                <a href="#others" class="dot">
-                    <span>Ďalšie</span>
-                </a>
-            </li>
-        </ul>
+        <div class="scroll-nav">
+            <button @click.prevent="toggleScrollNav" :class="['toggle-btn', {active: showScrollNav}]">
+                <Icon class="toggle-icon" name="fa6-solid:angle-left" size="1.5rem"/>
+            </button>
+            <a href="#pizza" class="dot active">
+                <span>Pizza</span>
+            </a>
+            <a href="#stangle" class="dot">
+                <span>Štangle</span>
+            </a>
+            <a href="#salads" class="dot">
+                <span>Šaláty</span>
+            </a>
+            <a href="#pasta" class="dot">
+                <span>Cestoviny</span>
+            </a>
+            <a href="#others" class="dot">
+                <span>Ďalšie</span>
+            </a>
+        </div>
         <section id="hero-alt">
             <h1 v-motion-slide-left>Ponuka</h1>
             <div class="hero-background"></div>
@@ -93,6 +86,13 @@
     const { data: salads } = await useAsyncData("salads", async () => fetchTableData("salads"));
     const { data: pasta } = await useAsyncData("pasta", async () => fetchTableData("pasta"));
     const { data: others } = await useAsyncData("others", async () => fetchTableData("others"));
+
+    const showScrollNav = ref(false);
+
+    function toggleScrollNav() {
+        showScrollNav.value = !showScrollNav.value;
+        console.log(showScrollNav.value);
+    }
 
     let channel;
     onMounted(() => {
@@ -161,24 +161,31 @@
     }
 
     .scroll-nav {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
         position: fixed;
         top: 50%;
         right: 2.5%;
         transform: translateY(-50%);
+        padding: 1.5rem .75rem 1.5rem 1.25rem;
+        border-radius: .5rem;
+        background-color: var(--color-background-secondary);
+        border: 2px solid rgba(255, 255, 255, .1);
+        box-shadow: 0 0 2rem .25rem rgba(0, 0, 0, .25);
         z-index: 100;
     }
 
-    .scroll-item {
-        position: relative;
-        text-align: right;
+    .toggle-btn {
+        display: none;
     }
 
-    .scroll-item:hover .dot span {
+    .dot:hover span {
         transform: translateX(0);
         opacity: 1;
     }
 
-    .scroll-item:hover .dot:not(.active)::before {
+    .dot:hover:not(.active)::before {
         background-color: var(--color-text);
     }
 
@@ -187,7 +194,7 @@
         background-color: var(--color-primary);
     }
 
-    .scroll-item:hover .dot::after,
+    .dot:hover::after,
     .dot.active::after {
         opacity: 1;
         border-color: var(--color-primary);
@@ -195,6 +202,7 @@
 
     .dot {
         display: block;
+        position: relative;
         color: var(--color-text);
     }
 
@@ -233,19 +241,20 @@
     }
 
     .dot span {
-        display: inline-block;
+        position: absolute;
+        top: -1.25rem;
+        right: 2rem;
         padding: .5rem 1rem;
-        margin-right: 2rem;
         background-color: var(--color-primary);
         border-radius: .5rem;
         transform: translateX(2rem);
         opacity: 0;
+        pointer-events: none;
         transition: all 300ms;
     }
 
     .dot span::before {
         content: "";
-        display: block;
         position: absolute;
         top: 50%;
         right: 0;
@@ -270,5 +279,48 @@
     .description-item span {
         font-size: 1.25rem;
         font-weight: 500;
+    }
+
+    @media only screen and (max-width: 1024px) {
+        .scroll-nav {
+            right: -2.25rem;
+            transition: right 300ms;
+        }
+
+        .dot {
+            pointer-events: none;
+        }
+
+        .toggle-btn {
+            display: block;
+            padding: .2rem;
+            position: absolute;
+            top: 50%;
+            left: -2rem;
+            transform: translateY(-50%);
+            background-color: var(--color-background-secondary);
+            border-top: 2px solid rgba(255, 255, 255, .1);
+            border-bottom: 2px solid rgba(255, 255, 255, .1);
+            border-left: 2px solid rgba(255, 255, 255, .1);
+            border-top-left-radius: .5rem;
+            border-bottom-left-radius: .5rem;
+            box-shadow: 0 0 2rem .25rem rgba(0, 0, 0, .25);
+        }
+
+        .toggle-icon {
+            transition: transform 300ms;
+        }
+
+        .toggle-btn.active .toggle-icon {
+            transform: rotate(.5turn);
+        }
+
+        .scroll-nav:has(.toggle-btn.active) {
+            right: 0;
+        }
+
+        .scroll-nav:has(.toggle-btn.active) .dot {
+            pointer-events: unset;
+        }
     }
 </style>
