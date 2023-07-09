@@ -8,6 +8,12 @@ export default defineNuxtConfig({
     "@vueuse/motion/nuxt",
     "@nuxt/image",
   ],
+  image: {
+    provider: "netlify",
+    netlify: {
+      baseURL: process.env.IMAGES_URL,
+    },
+  },
   css: [
     "@mdi/font/css/materialdesignicons.css",
     "vuetify/lib/styles/main.sass",
