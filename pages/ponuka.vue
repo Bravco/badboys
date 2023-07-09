@@ -2,7 +2,7 @@
     <div>
         <Floatingitems style="--floating-items-top: 50vh"/>
         <div class="scroll-nav">
-            <button @click.prevent="toggleScrollNav" :class="['toggle-btn', {active: showScrollNav}]">
+            <button @click.prevent="toggleScrollNav" :class="['toggle-btn', {active: showScrollNav}]" aria-label="Open menu scroll navigation">
                 <Icon class="toggle-icon" name="fa6-solid:angle-left" size="1.5rem"/>
             </button>
             <a href="#pizza" class="dot active">
