@@ -23,3 +23,5 @@ logs
 !.env.example
 
 credentials
+# Local Netlify folder
+.netlify
