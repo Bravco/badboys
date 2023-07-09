@@ -1,16 +1,18 @@
 <template>
     <div class="floating-items">
-        <img
+        <nuxt-img
             v-for="i in itemsCount" 
             v-motion-fade-visible
+            loading="lazy"
             :src="`/floatingItems/${Math.floor(Math.random() * 5)}.svg`"
+            alt="floating-item"
             class="floating-item" 
             :style="{
                 'margin-top': `${32 * i}rem`,
                 ...((i % 2) === 0 ? { right: '5%' } : { left: '5%' }),
                 'rotate': Math.random()*360 + 'deg',
             }"
-        >
+        />
     </div>
 </template>
 

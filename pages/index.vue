@@ -12,7 +12,7 @@
           <a href="#reviews" class="btn-outlined" v-motion="customMotion(false, 600)">Pozri Recenzie</a>
         </div>
       </div>
-      <div class="hero-background"></div>
+      <nuxt-img class="hero-background" loading="lazy" src="/hero-domov.webp" alt="hero-background"/>
     </section>
     <Quickinfo/>
     <section id="location">
@@ -20,7 +20,7 @@
         <h1>Lokácia</h1>
         <p class="paragraph-alt">Slovenského raja 169/23, 053 11 Smižany</p>
       </div>
-      <div class="location-img"></div>
+      <nuxt-img class="location-img" loading="lazy" src="/location.webp" alt="location-img"/>
     </section>
     <section id="reviews">
       <h1 v-motion-slide-visible-bottom>Recenzie</h1>
@@ -122,10 +122,6 @@
 </script>
 
 <style scoped>
-  .hero-background {
-    background-image: url("~/assets/hero-domov.png");
-  }
-
   .content {
     display: grid;
     gap: 3rem;
@@ -159,10 +155,8 @@
     height: 32rem;
     left: 0;
     bottom: 0;
-    background-image: url("~/assets/location.png");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
+    object-fit: cover;
+    background-color: var(--color-background-secondary);
   }
 
   #reviews {

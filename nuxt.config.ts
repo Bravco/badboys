@@ -6,6 +6,7 @@ export default defineNuxtConfig({
     "nuxt-swiper",
     "@nuxtjs/supabase",
     "@vueuse/motion/nuxt",
+    "@nuxt/image",
   ],
   css: [
     "@mdi/font/css/materialdesignicons.css",
@@ -17,9 +18,17 @@ export default defineNuxtConfig({
       name: "page",
       mode: "out-in",
     },
+    head: {
+      htmlAttrs: {
+        lang: "sk",
+      },
+    },
   },
   build: {
     transpile: ["vuetify"],
+  },
+  nitro: {
+    compressPublicAssets: true,
   },
   vite: {
     define: {

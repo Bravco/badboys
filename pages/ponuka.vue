@@ -23,7 +23,7 @@
         </div>
         <section id="hero-alt">
             <h1 v-motion-slide-left>Ponuka</h1>
-            <div class="hero-background"></div>
+            <nuxt-img class="hero-background" loading="lazy" src="/hero-ponuka.webp" alt="hero-background"/>
         </section>
         <Quickinfo/>
         <Menu id="pizza" class="scroll-section" title="Pizza" :items="pizzas">
@@ -152,10 +152,6 @@
 </script>
 
 <style scoped>
-    .hero-background {
-        background-image: url("~/assets/hero-ponuka.png");
-    }
-
     .scroll-section {
         scroll-margin-top: 8rem;
     }

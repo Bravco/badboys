@@ -13,14 +13,14 @@
                     <NuxtLink to="/dashboard">Dashboard</NuxtLink>
                 </li>
             </ul>
-            <button @click.prevent="toggleMobileMenu" :class="['hamburger', {'active' : isMobileMenuActive}]">
+            <button @click.prevent="toggleMobileMenu" :class="['hamburger', {'active' : isMobileMenuActive}]" aria-label="Open mobile navigation">
                 <span class="bar"></span>
             </button>
         </nav>
     </header>
     <slot/>
     <footer>
-        <div class="background"></div>
+        <nuxt-img class="background" loading="lazy" src="/footer.webp" alt="background"/>
         <div class="content">
             <div class="left">
                 <Logo/>
@@ -129,10 +129,8 @@
         top: 0;
         left: 0;
         z-index: -100;
-        background-image: url("~/assets/footer.png");
-        background-repeat: no-repeat;
-        background-position: top;
-        background-size: cover;
+        object-fit: cover;
+        object-position: top;
     }
 
     footer .content {

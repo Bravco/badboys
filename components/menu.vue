@@ -9,11 +9,12 @@
             </div>
             <ul class="menu-list">
                 <li v-for="item in items" class="menu-item" v-motion-slide-visible-bottom>
-                    <img 
+                    <nuxt-img 
                         class="menu-item-image" 
+                        loading="lazy"
                         :src="`/${isPizza ? 'pizza' : 'salad'}.svg`" 
                         alt="item-image"
-                    >
+                    />
                     <div class="menu-item-info">
                         <div class="text">
                             <h4>
