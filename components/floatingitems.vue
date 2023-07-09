@@ -4,7 +4,7 @@
             v-for="i in itemsCount" 
             v-motion-fade-visible
             loading="lazy"
-            :src="`/floatingItems/${Math.floor(Math.random() * 5)}.svg`"
+            :src="`/images/floatingItems/${Math.floor(Math.random() * 5)}.svg`"
             alt="floating-item"
             class="floating-item" 
             :style="{

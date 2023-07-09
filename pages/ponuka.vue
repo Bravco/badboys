@@ -23,7 +23,7 @@
         </div>
         <section id="hero-alt">
             <h1 v-motion-slide-left>Ponuka</h1>
-            <nuxt-img class="hero-background" loading="lazy" src="/hero-ponuka.webp" alt="hero-background"/>
+            <nuxt-img class="hero-background" loading="lazy" src="/images/hero-ponuka.webp" alt="hero-background"/>
         </section>
         <Quickinfo/>
         <Menu id="pizza" class="scroll-section" title="Pizza" :items="pizzas">

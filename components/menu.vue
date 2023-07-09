@@ -12,7 +12,7 @@
                     <nuxt-img 
                         class="menu-item-image" 
                         loading="lazy"
-                        :src="`/${isPizza ? 'pizza' : 'salad'}.svg`" 
+                        :src="`/images/${isPizza ? 'pizza' : 'salad'}.svg`" 
                         alt="item-image"
                     />
                     <div class="menu-item-info">

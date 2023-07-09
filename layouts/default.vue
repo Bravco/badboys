@@ -20,7 +20,7 @@
     </header>
     <slot/>
     <footer>
-        <nuxt-img class="background" loading="lazy" src="/footer.webp" alt="background"/>
+        <nuxt-img class="background" loading="lazy" src="/images/footer.webp" alt="background"/>
         <div class="content">
             <div class="left">
                 <Logo/>

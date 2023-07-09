@@ -12,7 +12,7 @@
           <a href="#reviews" class="btn-outlined" v-motion="customMotion(false, 600)">Pozri Recenzie</a>
         </div>
       </div>
-      <nuxt-img class="hero-background" loading="lazy" src="/hero-domov.webp" alt="hero-background"/>
+      <nuxt-img class="hero-background" loading="lazy" src="/images/hero-domov.webp" alt="hero-background"/>
     </section>
     <Quickinfo/>
     <section id="location">
@@ -20,7 +20,7 @@
         <h1>Lokácia</h1>
         <p class="paragraph-alt">Slovenského raja 169/23, 053 11 Smižany</p>
       </div>
-      <nuxt-img class="location-img" loading="lazy" src="/location.webp" alt="location-img"/>
+      <nuxt-img class="location-img" loading="lazy" src="/images/location.webp" alt="location-img"/>
     </section>
     <section id="reviews">
       <h1 v-motion-slide-visible-bottom>Recenzie</h1>
