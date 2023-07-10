@@ -19,6 +19,7 @@
     "vuetify": "^3.3.5"
   },
   "dependencies": {
+    "@fawmi/vue-google-maps": "^0.9.72",
     "@mdi/font": "^7.2.96",
     "@supabase/supabase-js": "^2.26.0",
     "@vueuse/motion": "^2.0.0",

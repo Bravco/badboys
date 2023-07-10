@@ -20,7 +20,9 @@
         <h1>Lokácia</h1>
         <p class="paragraph-alt">Slovenského raja 169/23, 053 11 Smižany</p>
       </div>
-      <nuxt-img class="location-img" loading="lazy" src="/images/location.webp" alt="location-img"/>
+      <GMapMap class="location-img" :center="{ lat: 48.954811, lng: 20.5139215 }" :zoom="16">
+        <GMapMarker :position="{ lat: 48.954811, lng: 20.5139215 }"></GMapMarker>
+      </GMapMap>
     </section>
     <section id="reviews">
       <h1 v-motion-slide-visible-bottom>Recenzie</h1>
