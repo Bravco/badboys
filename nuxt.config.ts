@@ -28,6 +28,16 @@ export default defineNuxtConfig({
       htmlAttrs: {
         lang: "sk",
       },
+      meta: [
+        {
+          name: "title",
+          content: "Bad Boys Pizza — Pizza, Štangle, Cestoviny, Šaláty a viac!",
+        },
+        {
+          name: "description",
+          content: "Ak hľadáte lahodné jedlo, Bad Boys Pizza je to pravé miesto! Vďaka širokej škále gastronomických možností si určite nájdete niečo, čo si zamilujete.",
+        },
+      ],
     },
   },
   build: {
